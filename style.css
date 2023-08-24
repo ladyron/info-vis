@@ -1,0 +1,43 @@
+h1, h2 {
+    text-align: center;
+    font-family: "Verdana", sans-serif;
+}
+
+h1 {
+    font-size: 50px;
+    margin-top: 0;
+    padding-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+h2 {
+    font-size: 15px;
+    font-weight: 100;
+    margin-top: 0;
+    padding-top: 0;
+    margin-bottom: 20px;
+}
+svg {
+    width: 100%;
+}
+.data-vis {
+    float: left;
+    margin: 5px;
+}
+#scatterplot {
+    width: 49%;
+}
+#pie-chart {
+    width: 49%;
+}
+#stateSelector p {
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+#stateSelector {
+    margin-left: 5px;
+}
+text {
+    -webkit-text-stroke-color: black;
+}

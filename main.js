@@ -1,12 +1,5 @@
 // dataset
 d3.csv("mass-shootings.csv").then(function(dataset) {
-    // if (error) {
-    //     // console.log("Error");
-    //     // console.log(error);
-    //     throw error;
-    // } else {
-    //     console.log("I work");
-    // }
     var stateLocations = [];
     for (i = 0; i < dataset.length; i++) {
         if (!(stateLocations.includes(dataset[i]["State"]))) {
@@ -214,7 +207,6 @@ d3.csv("mass-shootings.csv").then(function(dataset) {
         .x(function(d){ return xScale(d.name)})
         .y(function(d){ return yScale(d.value)});
         
-    // svg2.append(svgP);
     svgP.append("path")
         .attr("d", line(barData))
         .attr("stroke", "#BB77A7")
@@ -246,8 +238,6 @@ d3.csv("mass-shootings.csv").then(function(dataset) {
 
 // Handle scaled values
 
-
-
 function scaleDate(date) {
     return dateScale(date);
 }
@@ -264,26 +254,114 @@ var dateScale = d3.scaleTime()
 var fatalityScale = d3.scaleLinear()
     .domain([0, 35]).range([540, 50]);
 
-
-function updateGraphs() {
-    var e = document.getElementById("stateSelect");
+    function updateGraphs() {
+    var e = document.getElementById('stateSelect');
     var stateName = e.options[e.selectedIndex].text;
-    d3.csv("mass-shootings.csv").then(function(data) {
-        var initialData = [];
 
-        for (var i = 0; i < data.length; i++) {
-            if (data[i]["State"] == stateName) {
-                initialData.push(data[i]);
-                console.log(initialData.length);
-                break;
-            }
+    d3.csv('mass-shootings.csv').then(function (data) {
+        // Filter the data based on the selected state
+        var filteredData;
+        if (stateName === 'All States') {
+            // Show data for all states when "All States" is selected
+            filteredData = data;
+        } else {
+            filteredData = data.filter(function (d) {
+                return d['State'] === stateName;
+            });
         }
-        // var circle = d3.select("svg").selectAll("circle")
-        // // .data(initialData)
-        // // .enter()
-        // .append("circle")
-        // .attr("r", 2.5)
-        // .attr("cx", 100)
-        // .attr("cy", 100);
+
+        // update scatterplot with the filtered data
+        // create/update circles for each data point
+        var circles = d3.select('svg').selectAll('circle')
+            .data(filteredData);
+
+        // Enter new circles
+        circles.enter()
+            .append('circle')
+            .attr('r', 2.5)
+            .attr('cx', function (d) {
+                return scaleDate(new Date(d['date']));
+            })
+            .attr('cy', function (d) {
+                return scaleFatalities(d['fatalities']);
+            });
+
+        // Remove any circles that are no longer needed
+        circles.exit().remove();
     });
 }
+        // Your existing code here
+
+        // Define the function to update the pie chart
+        function updatePieChart(selectedState) {
+            // Filter the dataset based on the selected state
+            var filteredData = dataset.filter(function (d) {
+                return d['State'] === selectedState;
+            });
+
+            // Count the number of occurrences of each race in the filtered data
+            var raceCounts = {
+                White: 0,
+                Black: 0,
+                Latino: 0,
+                Asian: 0,
+                "Native American": 0,
+                Other: 0,
+            };
+
+            filteredData.forEach(function (d) {
+                switch (d['race'].toLowerCase()) {
+                    case 'white':
+                        raceCounts.White++;
+                        break;
+                    case 'black':
+                        raceCounts.Black++;
+                        break;
+                    case 'latino':
+                        raceCounts.Latino++;
+                        break;
+                    case 'asian':
+                        raceCounts.Asian++;
+                        break;
+                    case 'native american':
+                        raceCounts['Native American']++;
+                        break;
+                    default:
+                        raceCounts.Other++;
+                        break;
+                }
+            });
+
+            // Prepare data for the pie chart
+            var raceData = Object.values(raceCounts);
+
+            // Continue with your existing pie chart code to update the chart
+            // You don't need to re-create the entire pie chart; just update the data and labels
+
+            // Update the data for pie chart arcs
+            var arcs = svg2.selectAll('.arc').data(pie(raceData));
+
+            // Enter new data
+            arcs.enter().append('g').attr('class', 'arc').append('path');
+
+            // Exit any data that is no longer needed
+            arcs.exit().remove();
+
+            // Update the path of existing arcs
+            arcs.select('path')
+                .attr('d', arc)
+                .attr('fill', function (d, i) {
+                    return color(i);
+                });
+
+            // Update text labels, legend, and other elements based on the new data
+        }
+
+        // Add an event listener to the state selection dropdown
+        document.getElementById('stateSelect').addEventListener('change', function () {
+            var selectedState = this.value;
+            updatePieChart(selectedState);
+        });
+
+        // Initial pie chart creation
+        updatePieChart('California'); // Replace with your default state or use an empty string to show data for all states

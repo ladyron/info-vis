@@ -9,24 +9,17 @@
         <h2 style="text-align: center;">Explore data and details about mass shootings in the U.S. in the last 50 years</h2>
     </head>
     <body>
+        <div class="tooltip" style="display: none;"></div>
         <div class="data-vis" id="scatterplot">
             <svg height="600" style="border: 1px solid #777;"></svg>
         </div>
         <div class="data-vis" id="pie-chart">
             <svg height="600" style="border: 1px solid #777;"></svg>
             <div class="bar-chart">
-                <svg></svg>
             </div>
         </div>
-        <div id="stateSelector">
-            <p>Select a state</p>
-            <select id="stateSelect" onchange="updateGraphs()">
-            <!-- <select id="stateSelect"></select> -->
-          </div>
-        <!-- <div class="container" id="scatter"></div>
-		<div class="container" id="scatter_legend"></div>
-		<div class="container" id="bar"></div>
-		<div class="container" id="legend"></div>
-		<div class="button_container" id="button"></div> -->
+        <select id="stateSelect" onchange="updateGraphs()">
+            <option value="All">All States</option>
+        </select>
     </body>
 </html>

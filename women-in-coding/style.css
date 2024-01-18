@@ -1,0 +1,9 @@
+ /* Define styles for the chart */
+ .bar {
+    fill: steelblue;
+  }
+
+  text {
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+  }

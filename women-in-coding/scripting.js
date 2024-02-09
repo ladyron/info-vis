@@ -89,6 +89,7 @@ window.onload = function() {
                 .enter().append("circle")
                 .attr("class", "dot cm-dot hover")
                 .attr("fill", "steelblue")
+                .attr("title", function(d) { return +d.computer_math_scientists })
                 .attr("stroke-width", 1)
                 .attr("cx", d => xScale(d.year) + xScale.bandwidth() / 2)
                 .attr("cy", d => yScale(d.computer_math_scientists))
@@ -111,6 +112,7 @@ window.onload = function() {
                .data(dataset)
                .enter().append("circle")
                .attr("class", "dot bae-dot hover")
+               .attr("title", function(d) { return +d.bio_agri_environ_scientists })
                .attr("fill", "#BB77A7")
                .attr("stroke-width", 1)
                .attr("cx", d => xScale(d.year) + xScale.bandwidth() / 2)
@@ -134,6 +136,7 @@ window.onload = function() {
                 .data(dataset)
                 .enter().append("circle")
                 .attr("class", "dot p-dot hover")
+                .attr("title", function(d) { return +d.physical_scientists })
                 .attr("fill", "indigo")
                 .attr("stroke-width", 1)
                 .attr("cx", d => xScale(d.year) + xScale.bandwidth() / 2)
@@ -157,6 +160,7 @@ window.onload = function() {
                .data(dataset)
                .enter().append("circle")
                .attr("class", "dot s-dot hover")
+               .attr("title", function(d) { return +d.social_scientists })
                .attr("fill", "mediumorchid")
                .attr("stroke-width", 1)
                .attr("cx", d => xScale(d.year) + xScale.bandwidth() / 2)
@@ -180,6 +184,7 @@ window.onload = function() {
                .data(dataset)
                .enter().append("circle")
                .attr("class", "dot e-dot hover")
+               .attr("title", function(d) { return +d.engineers })
                .attr("fill", "pink")
                .attr("stroke-width", 1)
                .attr("cx", d => xScale(d.year) + xScale.bandwidth() / 2)
@@ -188,6 +193,9 @@ window.onload = function() {
 
             // adding tooltip to d3 generated svg resource
             // https://jsfiddle.net/eQmYX/41/
+            $("circle").tooltip({
+                'placement': 'left'
+            });
 
         }).catch(function(error) {
             console.log("Error loading the dataset: " + error);

@@ -186,6 +186,9 @@ window.onload = function() {
                .attr("cy", d => yScale(d.engineers))
                .attr("r", 4);
 
+            // adding tooltip to d3 generated svg resource
+            // https://jsfiddle.net/eQmYX/41/
+
         }).catch(function(error) {
             console.log("Error loading the dataset: " + error);
         });

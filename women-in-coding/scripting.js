@@ -1,91 +1,80 @@
-window.onload = (event) => {
-    console.log("page fully loaded");
+window.onload = function() {
+    function createChart() {
+        d3.csv("women-in-stem-1993-2009.csv").then(function(dataset) {
+            // Parse the dataset
+            dataset.forEach(function(d) {
+                d.year = +d.year; // Convert string to number
+                // You can parse other columns if needed
+            });
 
-    var height = 200;
+            // Remove existing SVG
+            d3.select("#chart").selectAll("svg").remove()
+            
+            // Set up the SVG
+            var containerWidth = document.getElementById("chart").offsetWidth;
+            var svgWidth = containerWidth;
+            var svgHeight = 500
+            var margin = { top: 20, right: 20, bottom: 30, left: 50 };
+            var width = svgWidth - margin.left - margin.right;
+            var height = svgHeight - margin.top - margin.bottom
+            var svg = d3.select("#chart")
+                        .append("svg")
+                        .attr("width", svgWidth)
+                        .attr("height", svgHeight)
+                        .append("g")
+                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            
+            // Set up scales
+            var xScale = d3.scaleBand()
+                           .domain(dataset.map(function(d) { return d.year; }))
+                           .range([0, width])
+                           .padding(0.1);
+            var yScale = d3.scaleLinear()
+                           .domain([0, 80])
+                           .range([height, 0]);
 
-    var Svg = d3.select("#linechart")
-        .append("svg")
-        .attr("height", height);
+            
+            // Create the x-axis
+            var xAxis = d3.axisBottom(xScale);
 
+            // Append x-axis to SVG
+            var xAxisGroup = svg.append("g")
+                            .attr("class", "x-axis")
+                            .attr("transform", "translate(0," + height + ")")
+                            .call(xAxis);
 
-    d3.csv("women-in-stem-1993-2009.csv").then(function(dataset) {
-        var year = [];
-        for (i = 0; i < dataset.length; i++) {
-            if (!(year.includes(dataset[i]["year"]))) {
-                year.push(dataset[i]["year"]);
-            }
-        }
-        // console.log(year.toString());
-        // console.log(year.length);
+            // Create the y-axis
+            var yAxis = d3.axisLeft(yScale);
 
-        var yScale = d3.scaleLinear()
-            .domain([d3.min(year), d3.max(year)])
-            .range([height, 0]);
+            // Append y-axis to SVG
+            var yAxisGroup = svg.append("g")
+               .attr("class", "y-axis")
+               .call(yAxis)
 
-        var yAxis = d3.axisLeft()
-            .scale(yScale);
+            svg.append("text")
+               .attr("transform", "rotate(-90)")
+               .attr("y", 0 - margin.left)
+               .attr("x", 0 - (height / 2))
+               .attr("dy", "1em")
+               .style("text-anchor", "middle")
+               .text("Percent");
 
-        Svg.append("g")
-            .attr("transform", "translater(50, 10)")
-            .call(yAxis);
+            d3.select('#chart').selectAll('.tick').selectAll('line').remove();
 
-    });
+            // Update font size of x-axis text based on container width
+            var fontSize = Math.min(14, Math.max(8, containerWidth / 60));
+            xAxisGroup.selectAll("text")
+                .style("font-size", fontSize + "px");
+            yAxisGroup.selectAll("text")
+                .style("font-size", fontSize + "px");
+            
 
+        }).catch(function(error) {
+            console.log("Error loading the dataset: " + error);
+        });
+    }
+
+    // Call createChart initially and on window resize
+    createChart();
+    window.addEventListener("resize", createChart);
 };
-// window.onload = (event) => {jkmjnkjnk
-//     console.log("page is fully loaded");
-//      // Define the data source
-//     var data = [4, 8, 15, 16, 23, 42];
-        
-//     // Define the chart dimensions
-//     var width = 400;
-//     var height = 200;
-    
-//     // Create the chart
-//     var svg = d3.select("svg")
-//     .attr("width", width)
-//     .attr("height", height);
-
-
-//     // Define the scale for the x-axis
-//     var x = d3.scaleBand()
-//     .range([0, width])
-//     .domain(data.map(function(d, i) { return i; }));
-
-
-//     // Define the scale for the y-axis
-//     var y = d3.scaleLinear()
-//     .range([height, 0])
-//     .domain([0, d3.max(data)]);
-
-//         // Add the x-axis labe
-//         svg.append("text")
-//         .attr("x", width / 2)
-//         .attr("y", height + 40)
-//         .attr("text-anchor", "middle")
-//         .text("Label for X Axis");
-    
-    
-//         // Add the y-axis label
-//         svg.append("text")
-//         .attr("transform", "rotate(-90)")
-//         .attr("x", 0 - height / 2)
-//         .attr("y", -40)
-//         .attr("text-anchor", "middle")
-//         .text("Label for Y Axis");
-
-
-//     // Add the bars to the chart
-//     svg.selectAll(".bar")
-//     .data(data)
-//     .enter().append("rect")
-//         .attr("class", "bar")
-//         .attr("x", function(d, i)
-//     { return x(i); })
-//     .attr("y", function(d) { return y(d); })
-//     .attr("width", x.bandwidth())
-//     .attr("height", function(d) { return height - y(d); });
-
-
-
-//   };

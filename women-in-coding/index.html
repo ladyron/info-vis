@@ -29,11 +29,41 @@
           opacity: 0.3;
         }
       }
+      .text-container {
+        display: flex;
+        margin: 20px auto;
+        justify-content: space-around;
+      }
+      .text-container p {
+        font-size: 14px;
+      }
+      .group1, .group2 {
+        margin-top: 40px;
+      }
+      p {
+        padding: 40px auto;
+      }
+      p:hover {
+        text-decoration: underline;
+      }
   </style>
   </head>
   <body>
     <!-- line chart -->
-    <div id="chart"></div>
+    
+    <div id="chart">
+    </div>
+    <div class="text-container">
+      <div class="group1">
+        <p>Computer and math scientists</p>
+        <p>Biology, agricultural, and environmental life scientists</p>
+        <p>Physical scientist</p>
+      </div>
+      <div class="group2">
+        <p>Social scientists</p>
+        <p>Engineers</p>
+      </div>
+    </div>
  </body>
 </html>
 </html>

@@ -29,33 +29,40 @@
           opacity: 0.3;
         }
       }
+      h1 {
+        text-align: center;
+        margin: 20px auto 30px auto;
+      }
       .text-container {
-        display: flex;
+        margin: 30px auto;
       }
       .text-container p {
         font-size: 14px;
       }
       .groups {
-        margin: auto;
+        margin: auto auto;
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
-        border: 1px solid red;
       }
-
       @media screen and (max-width: 768px) {
         .groups {
           flex-direction: column;
+          margin: auto 70px;
+        }
+        .text-container p {
+          font-size: 12px;
         }
       }
   </style>
   </head>
   <body>
+    <h1>Women in STEM from 1993 to 2019</h1>
     <div id="chart"></div>
     <div class="text-container">
       <div class="groups">
         <div class="group1">
-          <p>Computer and math scientists</p>
+          <p class="line">Computer and math scientists</p>
           <p>Biology, agricultural, and environmental life scientists</p>
           <p>Physical scientist</p>
         </div>

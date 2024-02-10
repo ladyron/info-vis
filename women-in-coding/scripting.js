@@ -196,12 +196,18 @@ window.onload = function() {
             $("circle").tooltip({
                 'placement': 'left'
             });
+            $("path").tooltip({
+                'placement': 'left'
+            });
+
 
         }).catch(function(error) {
             console.log("Error loading the dataset: " + error);
         });
     }
-
+    function test() {
+        console.log("I work");
+    }
     // Call createChart initially and on window resize
     createChart();
     window.addEventListener("resize", createChart);

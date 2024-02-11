@@ -9,4 +9,4 @@
 
 # Developer notes
 
-1. Project is on hold and is still in the works.
+1. Made a new project visualizing stats about women in STEM - still in progress.

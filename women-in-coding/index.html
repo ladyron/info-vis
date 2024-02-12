@@ -51,7 +51,7 @@
         transition: 150ms ease-in-out all;
         cursor: pointer;
       }
-      .groups:has(.legend:hover) .legend:not(:hover) {
+      .groups:has(.legend-1:hover) .legend-1:not(:hover) {
         opacity: 0.7;
       }
       .test {
@@ -59,6 +59,15 @@
       }
       .test2 {
         opacity: 0.2;
+      }
+      p {
+        padding: 0;
+        margin: 0;
+      }
+      .legend-1 {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
       }
       @media screen and (max-width: 768px) {
         .groups {
@@ -79,17 +88,53 @@
     <div class="text-container">
       <div class="groups">
         <div class="group1">
-          <p class="legend cm-text">Computer and math scientists</p>
-          <p class="legend bae-text">Biology, agricultural, and environmental life scientists</p>
-          <p class="legend p-text">Physical scientist</p>
+          <div class="legend-1">
+            <div class="color-line">
+              <svg height="10" width="10">
+                <line x1="0" y1="0" x2="10" y2="0" style="stroke:steelblue;stroke-width:5; z-index:0;"></line>
+              </svg>
+            </div>
+            <p class="legend cm-text">Computer and math scientists</p>
+          </div>
+          <div class="legend-1">
+            <div class="color-line">
+              <svg height="10" width="10">
+                <line x1="0" y1="0" x2="10" y2="0" style="stroke:#BB77A7;stroke-width:5; z-index:0;"></line>
+              </svg>
+            </div>
+            <p class="legend bae-text">Biology, agricultural, and environmental life scientists</p>
+          </div>
+          <div class="legend-1">
+            <div class="color-line">
+              <svg height="10" width="10">
+                <line x1="0" y1="0" x2="10" y2="0" style="stroke:indigo;stroke-width:5; z-index:0;"></line>
+              </svg>
+            </div>
+            <p class="legend p-text">Physical scientist</p>
+          </div>
         </div>
         <div class="group2">
-          <p class="legend s-text">Social scientists</p>
-          <p class="legend e-text">Engineers</p>
+          <div class="legend-1">
+            <div class="color-line">
+              <svg height="10" width="10">
+                <line x1="0" y1="0" x2="10" y2="0" style="stroke:mediumorchid;stroke-width:5; z-index:0;"></line>
+              </svg>
+            </div>
+            <p class="legend s-text">Social scientists</p>
+          </div>
+          <div class="legend-1">
+            <div class="color-line">
+              <svg height="10" width="10">
+                <line x1="0" y1="0" x2="10" y2="0" style="stroke:pink;stroke-width:5; z-index:0;"></line>
+              </svg>
+            </div>
+            <p class="legend e-text">Engineers</p>
+          </div>
           <!-- next do Employed women with highest degree in an S&E field, by race or ethnicity and field of degree: 2019 -->
         </div>
       </div>
     </div>
+
  </body>
 </html>
 </html>

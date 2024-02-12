@@ -26,12 +26,13 @@
           stroke-linecap: round;
         }
         svg:has(.hover:hover) .hover:not(:hover) {
-          opacity: 0.3;
+          opacity: 0.2;
         }
       }
       h1 {
         text-align: center;
-        margin: 20px auto 30px auto;
+        font-size: 1em;
+        margin: 20px auto 10px auto;
       }
       .text-container {
         margin: 30px auto;
@@ -40,14 +41,30 @@
         font-size: 14px;
       }
       .groups {
-        margin: auto auto;
+        margin: auto auto auto 50px;
         display: flex;
         flex-direction: row;
-        justify-content: space-evenly;
+        justify-content: flex-start;
+        gap: 50px;
+      }
+      .legend {
+        transition: 150ms ease-in-out all;
+        cursor: pointer;
+      }
+      .groups:has(.legend:hover) .legend:not(:hover) {
+        opacity: 0.7;
+      }
+      .test {
+        opacity: 1;
+      }
+      .test2 {
+        opacity: 0.2;
       }
       @media screen and (max-width: 768px) {
         .groups {
           flex-direction: column;
+          justify-content: space-between;
+          gap: 0px;
           margin: auto 70px;
         }
         .text-container p {
@@ -62,13 +79,14 @@
     <div class="text-container">
       <div class="groups">
         <div class="group1">
-          <p class="line">Computer and math scientists</p>
-          <p>Biology, agricultural, and environmental life scientists</p>
-          <p>Physical scientist</p>
+          <p class="legend cm-text">Computer and math scientists</p>
+          <p class="legend bae-text">Biology, agricultural, and environmental life scientists</p>
+          <p class="legend p-text">Physical scientist</p>
         </div>
         <div class="group2">
-          <p>Social scientists</p>
-          <p>Engineers</p>
+          <p class="legend s-text">Social scientists</p>
+          <p class="legend e-text">Engineers</p>
+          <!-- next do Employed women with highest degree in an S&E field, by race or ethnicity and field of degree: 2019 -->
         </div>
       </div>
     </div>

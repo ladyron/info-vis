@@ -30,37 +30,40 @@ window.onload = function() {
             
             // Set up scales
             var xScale = d3.scaleBand()
-                        .domain(dataset.map(function(d) { return d.year; }))
-                        .range([0, width])
-                        .padding(0.1);
+                            .domain(dataset.map(function(d) { return d.year; }))
+                            .range([0, width])
+                            .padding(0.1);
             var yScale = d3.scaleLinear()
-                        .domain([0, 80]) // Adjust the domain based on your data
-                        .range([height, 0]);
+                            .domain([0, 80]) // Adjust the domain based on your data
+                            .range([height, 0]);
             
             // Create the x-axis
             var xAxis = d3.axisBottom(xScale);
 
             // Append x-axis to SVG
             var xAxisGroup = svg.append("g")
-                            .attr("class", "x-axis")
-                            .attr("transform", "translate(0," + height + ")")
-                            .call(xAxis);
+                                .attr("class", "x-axis")
+                                .attr("transform", "translate(0," + height + ")")
+                                .call(xAxis);
+
+            // ADD YEAR LABEL
 
             // Create the y-axis
             var yAxis = d3.axisLeft(yScale);
 
             // Append y-axis to SVG
             var yAxisGroup = svg.append("g")
-                .attr("class", "y-axis")
-                .call(yAxis);
+                                .attr("class", "y-axis")
+                                .call(yAxis);
 
             svg.append("text")
-                .attr("transform", "rotate(-90)")
-                .attr("y", 0 - margin.left)
-                .attr("x", 0 - (height / 2))
-                .attr("dy", "1em")
-                .style("text-anchor", "middle")
-                .text("Percent");
+               .attr("transform", "rotate(-90)")
+               .attr("y", 0 - margin.left)
+               .attr("x", 0 - (height / 2))
+               .attr("dy", "1em")
+               .style("text-anchor", "middle")
+               .text("Percent");
+
 
             yAxisGroup.selectAll('.tick').selectAll('line').remove();
 
@@ -79,7 +82,7 @@ window.onload = function() {
             svg.append("path")
                 .datum(dataset)
                 .attr("fill", "none")
-                .attr("class", "line hover")
+                .attr("class", "line hover cmline")
                 .attr("stroke", "steelblue")
                 .attr("stroke-width", 3)
                 .attr("d", cmline);
@@ -87,7 +90,7 @@ window.onload = function() {
             svg.selectAll(".cm-dot")
                 .data(dataset)
                 .enter().append("circle")
-                .attr("class", "dot cm-dot hover")
+                .attr("class", "dot cm-dot hover cmline")
                 .attr("fill", "steelblue")
                 .attr("title", function(d) { return +d.computer_math_scientists })
                 .attr("stroke-width", 1)
@@ -103,7 +106,7 @@ window.onload = function() {
             svg.append("path")
                .datum(dataset)
                .attr("fill", "none")
-               .attr("class", "line hover")
+               .attr("class", "line hover baeline")
                .attr("stroke", "#BB77A7")
                .attr("stroke-width", 3)
                .attr("d", baeline);
@@ -111,7 +114,7 @@ window.onload = function() {
             svg.selectAll(".bae-dot")
                .data(dataset)
                .enter().append("circle")
-               .attr("class", "dot bae-dot hover")
+               .attr("class", "dot bae-dot hover baeline")
                .attr("title", function(d) { return +d.bio_agri_environ_scientists })
                .attr("fill", "#BB77A7")
                .attr("stroke-width", 1)
@@ -127,7 +130,7 @@ window.onload = function() {
             svg.append("path")
                 .datum(dataset)
                 .attr("fill", "none")
-                .attr("class", "line hover")
+                .attr("class", "line hover pline")
                 .attr("stroke", "indigo")
                 .attr("stroke-width", 3)
                 .attr("d", pline);
@@ -135,7 +138,7 @@ window.onload = function() {
             svg.selectAll(".p-dot")
                 .data(dataset)
                 .enter().append("circle")
-                .attr("class", "dot p-dot hover")
+                .attr("class", "dot p-dot hover pline")
                 .attr("title", function(d) { return +d.physical_scientists })
                 .attr("fill", "indigo")
                 .attr("stroke-width", 1)
@@ -151,7 +154,7 @@ window.onload = function() {
             svg.append("path")
                .datum(dataset)
                .attr("fill", "none")
-               .attr("class", "line hover")
+               .attr("class", "line hover sline")
                .attr("stroke", "mediumorchid")
                .attr("stroke-width", 3)
                .attr("d", sline);
@@ -159,7 +162,7 @@ window.onload = function() {
             svg.selectAll(".s-dot")
                .data(dataset)
                .enter().append("circle")
-               .attr("class", "dot s-dot hover")
+               .attr("class", "dot s-dot hover sline")
                .attr("title", function(d) { return +d.social_scientists })
                .attr("fill", "mediumorchid")
                .attr("stroke-width", 1)
@@ -175,7 +178,7 @@ window.onload = function() {
             svg.append("path")
                .datum(dataset)
                .attr("fill", "none")
-               .attr("class", "line hover")
+               .attr("class", "line hover eline")
                .attr("stroke", "pink")
                .attr("stroke-width", 3)
                .attr("d", eline);
@@ -183,7 +186,7 @@ window.onload = function() {
             svg.selectAll(".e-dot")
                .data(dataset)
                .enter().append("circle")
-               .attr("class", "dot e-dot hover")
+               .attr("class", "dot e-dot hover eline")
                .attr("title", function(d) { return +d.engineers })
                .attr("fill", "pink")
                .attr("stroke-width", 1)
@@ -191,22 +194,85 @@ window.onload = function() {
                .attr("cy", d => yScale(d.engineers))
                .attr("r", 4);
 
-            // adding tooltip to d3 generated svg resource
-            // https://jsfiddle.net/eQmYX/41/
             $("circle").tooltip({
                 'placement': 'left'
             });
-            $("path").tooltip({
-                'placement': 'left'
-            });
 
+            $(".cm-text").mouseover(function() {
+                $(".cmline").addClass("test");
+                $(".baeline").addClass("test2");
+                $(".pline").addClass("test2");
+                $(".sline").addClass("test2");
+                $(".eline").addClass("test2");
+            });
+            $(".cm-text").mouseout(function() {
+                $(".cmline").removeClass("test");
+                $(".baeline").removeClass("test2");
+                $(".pline").removeClass("test2");
+                $(".sline").removeClass("test2");
+                $(".eline").removeClass("test2");
+            });
+            $(".bae-text").mouseover(function() {
+                $(".baeline").addClass("test");
+                $(".cmline").addClass("test2");
+                $(".pline").addClass("test2");
+                $(".sline").addClass("test2");
+                $(".eline").addClass("test2");
+            });
+            $(".bae-text").mouseout(function() {
+                $(".baeline").removeClass("test");
+                $(".cmline").removeClass("test2");
+                $(".pline").removeClass("test2");
+                $(".sline").removeClass("test2");
+                $(".eline").removeClass("test2");
+            });
+            $(".p-text").mouseover(function() {
+                $(".pline").addClass("test");
+                $(".cmline").addClass("test2");
+                $(".baeline").addClass("test2");
+                $(".sline").addClass("test2");
+                $(".eline").addClass("test2");
+            });
+            $(".p-text").mouseout(function() {
+                $(".pline").removeClass("test");
+                $(".cmline").removeClass("test2");
+                $(".baeline").removeClass("test2");
+                $(".sline").removeClass("test2");
+                $(".eline").removeClass("test2");
+            });
+            $(".s-text").mouseover(function() {
+                $(".sline").addClass("test");
+                $(".cmline").addClass("test2");
+                $(".baeline").addClass("test2");
+                $(".pline").addClass("test2");
+                $(".eline").addClass("test2");
+            });
+            $(".s-text").mouseout(function() {
+                $(".sline").removeClass("test");
+                $(".cmline").removeClass("test2");
+                $(".baeline").removeClass("test2");
+                $(".pline").removeClass("test2");
+                $(".eline").removeClass("test2");
+            });
+            $(".e-text").mouseover(function() {
+                $(".eline").addClass("test");
+                $(".cmline").addClass("test2");
+                $(".baeline").addClass("test2");
+                $(".pline").addClass("test2");
+                $(".sline").addClass("test2");
+            });
+            $(".e-text").mouseout(function() {
+                $(".eline").removeClass("test");
+                $(".cmline").removeClass("test2");
+                $(".baeline").removeClass("test2");
+                $(".pline").removeClass("test2");
+                $(".sline").removeClass("test2");
+            });
 
         }).catch(function(error) {
             console.log("Error loading the dataset: " + error);
         });
-    }
-    function test() {
-        console.log("I work");
+
     }
     // Call createChart initially and on window resize
     createChart();

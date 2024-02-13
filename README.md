@@ -9,4 +9,7 @@
 
 # Developer notes
 
-1. Made a new project visualizing stats about women in STEM - still in progress.
+- Made a new project visualizing stats about women in STEM - still in progress.
+- The story of this data is to show the history of women in the world of coding, being the first programmers in the 20th century that made many contributions to the field. Despite this, the percent of women in coding has seen a downward trend compared to women in other STEM fields. Even more interestingly, I wanted to analyze the masculinization of the field as the digital tech world became more prominent. 
+- My goal with this is to show the "hidden figures" in the computer science fields.
+

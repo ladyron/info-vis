@@ -270,9 +270,18 @@ window.onload = function() {
             });
 
         }).catch(function(error) {
-            console.log("Error loading the dataset: " + error);
+            console.log("Error loading the field dataset: " + error);
         });
 
+        d3.csv("women-demographics.csv").then(function(dataset) {
+            // Parse the dataset
+            dataset.forEach(function(d) {
+
+            });
+            
+        }).catch(function(error) {
+            console.log("Error loading demographic dataset: " + error)
+        })
     }
     // Call createChart initially and on window resize
     createChart();

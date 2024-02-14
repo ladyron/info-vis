@@ -197,46 +197,45 @@ window.onload = function() {
             $("circle").tooltip({
                 'placement': 'left'
             });
-
             $(".cmhover").mouseover(function() {
                 $(".cmline").css("stroke-width", 5);
-                // $(this).addClass("over");
+                $(".cm-dot").css("r", 5);
             });
             $(".baehover").mouseover(function() {
                 $(".baeline").css("stroke-width", 5);
-                // $(this).addClass("over");
+                $(".bae-dot").css("r", 5);
             });
             $(".phover").mouseover(function() {
                 $(".pline").css("stroke-width", 5);
-                // $(this).addClass("over");
+                $(".p-dot").css("r", 5);
             });
             $(".shover").mouseover(function() {
                 $(".sline").css("stroke-width", 5);
-                // $(this).addClass("over");
+                $(".s-dot").css("r", 5);
             });
             $(".ehover").mouseover(function() {
                 $(".eline").css("stroke-width", 5);
-                // $(this).addClass("over");
+                $(".e-dot").css("r", 5);
             });
             $(".cmhover").mouseout(function() {
                 $(".cmline").css("stroke-width", 3);
-                // $(".line").removeClass("over");
+                $(".cm-dot").css("r", 4);
             });
             $(".baehover").mouseout(function() {
                 $(".baeline").css("stroke-width", 3);
-                // $(".line").removeClass("over");
+                $(".bae-dot").css("r", 4);
             });
             $(".phover").mouseout(function() {
                 $(".pline").css("stroke-width", 3);
-                // $(".line").removeClass("over");
+                $(".p-dot").css("r", 4);
             });
             $(".shover").mouseout(function() {
                 $(".sline").css("stroke-width", 3);
-                // $(".line").removeClass("over");
+                $(".s-dot").css("r", 4);
             });
             $(".ehover").mouseout(function() {
                 $(".eline").css("stroke-width", 3);
-                // $(".line").removeClass("over");
+                $(".e-dot").css("r", 4);
             });
             $(".cm-text").mouseover(function() {
                 $(".cmline").addClass("test");

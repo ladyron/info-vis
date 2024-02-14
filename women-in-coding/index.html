@@ -25,6 +25,7 @@
           padding: 10px;
           stroke-linecap: round;
         }
+
         /* svg:has(.line:hover) .line:not(:hover) {
           opacity: 0.2;
         } */
@@ -67,6 +68,10 @@
         padding: 0;
         margin: 0;
       }
+      .credit {
+        margin: 10px 50px auto 50px;
+        font-size: 14px;
+      }
       .legend-1 {
         display: flex;
         flex-direction: row;
@@ -82,12 +87,16 @@
         .text-container p {
           font-size: 12px;
         }
+        .credit {
+          font-size: 12px;
+        }
       }
   </style>
   </head>
   <body>
     <h1>Women in STEM from 1993 to 2019 in the United States</h1>
     <div id="chart"></div>
+    <p class="credit">Souce(s): National Center for Science and Engineering Statistics, Scientists and Engineers Statistical Data System (SESTAT), 1993–2013, National Survey of College Graduates (NSCG), 2015–19, and Survey of Doctorate Recipients (SDR), 2015–19.</p>
     <div class="text-container">
       <div class="groups">
         <div class="group1">

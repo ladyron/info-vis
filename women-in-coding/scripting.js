@@ -200,6 +200,7 @@ window.onload = function() {
             $(".cmhover").mouseover(function() {
                 $(".cmline").css("stroke-width", 5);
                 $(".cm-dot").css("r", 5);
+                // $(".cm-dot").css("stroke", "red");
             });
             $(".baehover").mouseover(function() {
                 $(".baeline").css("stroke-width", 5);
@@ -220,6 +221,7 @@ window.onload = function() {
             $(".cmhover").mouseout(function() {
                 $(".cmline").css("stroke-width", 3);
                 $(".cm-dot").css("r", 4);
+                // $(".cm-dot").css("stroke", "transparent");
             });
             $(".baehover").mouseout(function() {
                 $(".baeline").css("stroke-width", 3);

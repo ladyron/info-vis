@@ -82,7 +82,7 @@ window.onload = function() {
             svg.append("path")
                 .datum(dataset)
                 .attr("fill", "none")
-                .attr("class", "line hover cmline")
+                .attr("class", "line cmhover cmline")
                 .attr("stroke", "steelblue")
                 .attr("stroke-width", 3)
                 .attr("d", cmline);
@@ -90,7 +90,7 @@ window.onload = function() {
             svg.selectAll(".cm-dot")
                 .data(dataset)
                 .enter().append("circle")
-                .attr("class", "dot cm-dot hover cmline")
+                .attr("class", "dot cm-dot cmhover cmline")
                 .attr("fill", "steelblue")
                 .attr("title", function(d) { return +d.computer_math_scientists })
                 .attr("stroke-width", 1)
@@ -106,7 +106,7 @@ window.onload = function() {
             svg.append("path")
                .datum(dataset)
                .attr("fill", "none")
-               .attr("class", "line hover baeline")
+               .attr("class", "line baehover baeline")
                .attr("stroke", "#BB77A7")
                .attr("stroke-width", 3)
                .attr("d", baeline);
@@ -114,7 +114,7 @@ window.onload = function() {
             svg.selectAll(".bae-dot")
                .data(dataset)
                .enter().append("circle")
-               .attr("class", "dot bae-dot hover baeline")
+               .attr("class", "dot bae-dot baehover baeline")
                .attr("title", function(d) { return +d.bio_agri_environ_scientists })
                .attr("fill", "#BB77A7")
                .attr("stroke-width", 1)
@@ -130,7 +130,7 @@ window.onload = function() {
             svg.append("path")
                 .datum(dataset)
                 .attr("fill", "none")
-                .attr("class", "line hover pline")
+                .attr("class", "line phover pline")
                 .attr("stroke", "indigo")
                 .attr("stroke-width", 3)
                 .attr("d", pline);
@@ -138,7 +138,7 @@ window.onload = function() {
             svg.selectAll(".p-dot")
                 .data(dataset)
                 .enter().append("circle")
-                .attr("class", "dot p-dot hover pline")
+                .attr("class", "dot p-dot phover pline")
                 .attr("title", function(d) { return +d.physical_scientists })
                 .attr("fill", "indigo")
                 .attr("stroke-width", 1)
@@ -154,7 +154,7 @@ window.onload = function() {
             svg.append("path")
                .datum(dataset)
                .attr("fill", "none")
-               .attr("class", "line hover sline")
+               .attr("class", "line shover sline")
                .attr("stroke", "mediumorchid")
                .attr("stroke-width", 3)
                .attr("d", sline);
@@ -162,7 +162,7 @@ window.onload = function() {
             svg.selectAll(".s-dot")
                .data(dataset)
                .enter().append("circle")
-               .attr("class", "dot s-dot hover sline")
+               .attr("class", "dot s-dot shover sline")
                .attr("title", function(d) { return +d.social_scientists })
                .attr("fill", "mediumorchid")
                .attr("stroke-width", 1)
@@ -178,7 +178,7 @@ window.onload = function() {
             svg.append("path")
                .datum(dataset)
                .attr("fill", "none")
-               .attr("class", "line hover eline")
+               .attr("class", "line ehover eline")
                .attr("stroke", "pink")
                .attr("stroke-width", 3)
                .attr("d", eline);
@@ -186,7 +186,7 @@ window.onload = function() {
             svg.selectAll(".e-dot")
                .data(dataset)
                .enter().append("circle")
-               .attr("class", "dot e-dot hover eline")
+               .attr("class", "dot e-dot ehover eline")
                .attr("title", function(d) { return +d.engineers })
                .attr("fill", "pink")
                .attr("stroke-width", 1)
@@ -198,6 +198,46 @@ window.onload = function() {
                 'placement': 'left'
             });
 
+            $(".cmhover").mouseover(function() {
+                $(".cmline").css("stroke-width", 5);
+                // $(this).addClass("over");
+            });
+            $(".baehover").mouseover(function() {
+                $(".baeline").css("stroke-width", 5);
+                // $(this).addClass("over");
+            });
+            $(".phover").mouseover(function() {
+                $(".pline").css("stroke-width", 5);
+                // $(this).addClass("over");
+            });
+            $(".shover").mouseover(function() {
+                $(".sline").css("stroke-width", 5);
+                // $(this).addClass("over");
+            });
+            $(".ehover").mouseover(function() {
+                $(".eline").css("stroke-width", 5);
+                // $(this).addClass("over");
+            });
+            $(".cmhover").mouseout(function() {
+                $(".cmline").css("stroke-width", 3);
+                // $(".line").removeClass("over");
+            });
+            $(".baehover").mouseout(function() {
+                $(".baeline").css("stroke-width", 3);
+                // $(".line").removeClass("over");
+            });
+            $(".phover").mouseout(function() {
+                $(".pline").css("stroke-width", 3);
+                // $(".line").removeClass("over");
+            });
+            $(".shover").mouseout(function() {
+                $(".sline").css("stroke-width", 3);
+                // $(".line").removeClass("over");
+            });
+            $(".ehover").mouseout(function() {
+                $(".eline").css("stroke-width", 3);
+                // $(".line").removeClass("over");
+            });
             $(".cm-text").mouseover(function() {
                 $(".cmline").addClass("test");
                 $(".baeline").addClass("test2");

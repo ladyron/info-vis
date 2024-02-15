@@ -319,28 +319,24 @@ window.onload = function() {
                 $(".pline").removeClass("test2");
                 $(".sline").removeClass("test2");
             });
-
-            d3.csv("women-demographics.csv").then(function(dataset) {
-                // Parse the dataset
-                dataset.forEach(function(d) {
-                    d.workforce_groups = +d.workforce_groups;
-                    d.black_africanamerican = +d.black_africanamerican;
-                    d.native_american = +d.native_american;
-                    d.hispanic_latino = +d.hispanic_latino;
-                    d.asian = +d.asian;
-                    d.pacific_islander = +d.pacific_islander;
-                    d.white = +d.white;
-                    d.more_than_one = +d.more_than_one;
-                });
-
-                console.log(+d.workforce_groups);
-                
-            }).catch(function(error) {
-                console.log("Error loading demographic dataset: " + error)
+        }).catch(function(error) {
+            console.log("Error loading the field dataset: " + error);
+        });
+        d3.csv("women-demographics.csv").then(function(dataset) {
+            // Parse the dataset
+            dataset.forEach(function(d) {
+                d.workforce_groups = +d.workforce_groups;
+                d.black_africanamerican = +d.black_africanamerican;
+                d.native_american = +d.native_american;
+                d.hispanic_latino = +d.hispanic_latino;
+                d.asian = +d.asian;
+                d.pacific_islander = +d.pacific_islander;
+                d.white = +d.white;
+                d.more_than_one = +d.more_than_one;
             });
 
         }).catch(function(error) {
-            console.log("Error loading the field dataset: " + error);
+            console.log("Error loading demographic dataset: " + error)
         });
 
     }

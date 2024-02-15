@@ -197,47 +197,57 @@ window.onload = function() {
             $("circle").tooltip({
                 'placement': 'left'
             });
+
             $(".cmhover").mouseover(function() {
                 $(".cmline").css("stroke-width", 5);
                 $(".cm-dot").css("r", 5);
-                // $(".cm-dot").css("stroke", "red");
+                $(".cm-dot").css("stroke", "lightblue");
             });
             $(".baehover").mouseover(function() {
                 $(".baeline").css("stroke-width", 5);
                 $(".bae-dot").css("r", 5);
+                $(".bae-dot").css("stroke", "palevioletred");
             });
             $(".phover").mouseover(function() {
                 $(".pline").css("stroke-width", 5);
                 $(".p-dot").css("r", 5);
+                $(".p-dot").css("stroke", "mediumpurple");
             });
             $(".shover").mouseover(function() {
                 $(".sline").css("stroke-width", 5);
                 $(".s-dot").css("r", 5);
+                $(".s-dot").css("stroke", "orchid");
             });
             $(".ehover").mouseover(function() {
                 $(".eline").css("stroke-width", 5);
                 $(".e-dot").css("r", 5);
+                $(".e-dot").css("stroke", "mistyrose");
             });
             $(".cmhover").mouseout(function() {
                 $(".cmline").css("stroke-width", 3);
                 $(".cm-dot").css("r", 4);
-                // $(".cm-dot").css("stroke", "transparent");
+                $(".cm-dot").css("stroke", "transparent");
+                $('.cm-text').css("border-bottom", "");
             });
             $(".baehover").mouseout(function() {
                 $(".baeline").css("stroke-width", 3);
                 $(".bae-dot").css("r", 4);
+                $(".bae-dot").css("stroke", "transparent");
             });
             $(".phover").mouseout(function() {
                 $(".pline").css("stroke-width", 3);
                 $(".p-dot").css("r", 4);
+                $(".p-dot").css("stroke", "transparent");
             });
             $(".shover").mouseout(function() {
                 $(".sline").css("stroke-width", 3);
                 $(".s-dot").css("r", 4);
+                $(".s-dot").css("stroke", "transparent");
             });
             $(".ehover").mouseout(function() {
                 $(".eline").css("stroke-width", 3);
                 $(".e-dot").css("r", 4);
+                $(".e-dot").css("stroke", "transparent");
             });
             $(".cm-text").mouseover(function() {
                 $(".cmline").addClass("test");
@@ -310,19 +320,29 @@ window.onload = function() {
                 $(".sline").removeClass("test2");
             });
 
+            d3.csv("women-demographics.csv").then(function(dataset) {
+                // Parse the dataset
+                dataset.forEach(function(d) {
+                    d.workforce_groups = +d.workforce_groups;
+                    d.black_africanamerican = +d.black_africanamerican;
+                    d.native_american = +d.native_american;
+                    d.hispanic_latino = +d.hispanic_latino;
+                    d.asian = +d.asian;
+                    d.pacific_islander = +d.pacific_islander;
+                    d.white = +d.white;
+                    d.more_than_one = +d.more_than_one;
+                });
+
+                console.log(+d.workforce_groups);
+                
+            }).catch(function(error) {
+                console.log("Error loading demographic dataset: " + error)
+            });
+
         }).catch(function(error) {
             console.log("Error loading the field dataset: " + error);
         });
 
-        d3.csv("women-demographics.csv").then(function(dataset) {
-            // Parse the dataset
-            dataset.forEach(function(d) {
-
-            });
-            
-        }).catch(function(error) {
-            console.log("Error loading demographic dataset: " + error)
-        })
     }
     // Call createChart initially and on window resize
     createChart();

@@ -34,7 +34,7 @@ window.onload = function() {
                             .range([0, width])
                             .padding(0.1);
             var yScale = d3.scaleLinear()
-                            .domain([0, 80]) // Adjust the domain based on your data
+                            .domain([0, 80])
                             .range([height, 0]);
             
             // Create the x-axis
@@ -47,9 +47,18 @@ window.onload = function() {
                                 .call(xAxis);
 
             // ADD YEAR LABEL
+            svg.append("text")
+            .attr("transform", "translate(0," + height + ")")
+            .attr("y", 0 - height)
+            .attr("x", 0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("Year");
+
 
             // Create the y-axis
             var yAxis = d3.axisLeft(yScale);
+            // var yAxis = d3.axisLeft(yScale).tickSize(-width, 0, 0);
 
             // Append y-axis to SVG
             var yAxisGroup = svg.append("g")
@@ -250,74 +259,74 @@ window.onload = function() {
                 $(".e-dot").css("stroke", "transparent");
             });
             $(".cm-text").mouseover(function() {
-                $(".cmline").addClass("test");
-                $(".baeline").addClass("test2");
-                $(".pline").addClass("test2");
-                $(".sline").addClass("test2");
-                $(".eline").addClass("test2");
+                $(".cmline").addClass("target");
+                $(".baeline").addClass("other");
+                $(".pline").addClass("other");
+                $(".sline").addClass("other");
+                $(".eline").addClass("other");
             });
             $(".cm-text").mouseout(function() {
-                $(".cmline").removeClass("test");
-                $(".baeline").removeClass("test2");
-                $(".pline").removeClass("test2");
-                $(".sline").removeClass("test2");
-                $(".eline").removeClass("test2");
+                $(".cmline").removeClass("target");
+                $(".baeline").removeClass("other");
+                $(".pline").removeClass("other");
+                $(".sline").removeClass("other");
+                $(".eline").removeClass("other");
             });
             $(".bae-text").mouseover(function() {
-                $(".baeline").addClass("test");
-                $(".cmline").addClass("test2");
-                $(".pline").addClass("test2");
-                $(".sline").addClass("test2");
-                $(".eline").addClass("test2");
+                $(".baeline").addClass("target");
+                $(".cmline").addClass("other");
+                $(".pline").addClass("other");
+                $(".sline").addClass("other");
+                $(".eline").addClass("other");
             });
             $(".bae-text").mouseout(function() {
-                $(".baeline").removeClass("test");
-                $(".cmline").removeClass("test2");
-                $(".pline").removeClass("test2");
-                $(".sline").removeClass("test2");
-                $(".eline").removeClass("test2");
+                $(".baeline").removeClass("target");
+                $(".cmline").removeClass("other");
+                $(".pline").removeClass("other");
+                $(".sline").removeClass("other");
+                $(".eline").removeClass("other");
             });
             $(".p-text").mouseover(function() {
-                $(".pline").addClass("test");
-                $(".cmline").addClass("test2");
-                $(".baeline").addClass("test2");
-                $(".sline").addClass("test2");
-                $(".eline").addClass("test2");
+                $(".pline").addClass("target");
+                $(".cmline").addClass("other");
+                $(".baeline").addClass("other");
+                $(".sline").addClass("other");
+                $(".eline").addClass("other");
             });
             $(".p-text").mouseout(function() {
-                $(".pline").removeClass("test");
-                $(".cmline").removeClass("test2");
-                $(".baeline").removeClass("test2");
-                $(".sline").removeClass("test2");
-                $(".eline").removeClass("test2");
+                $(".pline").removeClass("target");
+                $(".cmline").removeClass("other");
+                $(".baeline").removeClass("other");
+                $(".sline").removeClass("other");
+                $(".eline").removeClass("other");
             });
             $(".s-text").mouseover(function() {
-                $(".sline").addClass("test");
-                $(".cmline").addClass("test2");
-                $(".baeline").addClass("test2");
-                $(".pline").addClass("test2");
-                $(".eline").addClass("test2");
+                $(".sline").addClass("target");
+                $(".cmline").addClass("other");
+                $(".baeline").addClass("other");
+                $(".pline").addClass("other");
+                $(".eline").addClass("other");
             });
             $(".s-text").mouseout(function() {
-                $(".sline").removeClass("test");
-                $(".cmline").removeClass("test2");
-                $(".baeline").removeClass("test2");
-                $(".pline").removeClass("test2");
-                $(".eline").removeClass("test2");
+                $(".sline").removeClass("target");
+                $(".cmline").removeClass("other");
+                $(".baeline").removeClass("other");
+                $(".pline").removeClass("other");
+                $(".eline").removeClass("other");
             });
             $(".e-text").mouseover(function() {
-                $(".eline").addClass("test");
-                $(".cmline").addClass("test2");
-                $(".baeline").addClass("test2");
-                $(".pline").addClass("test2");
-                $(".sline").addClass("test2");
+                $(".eline").addClass("target");
+                $(".cmline").addClass("other");
+                $(".baeline").addClass("other");
+                $(".pline").addClass("other");
+                $(".sline").addClass("other");
             });
             $(".e-text").mouseout(function() {
-                $(".eline").removeClass("test");
-                $(".cmline").removeClass("test2");
-                $(".baeline").removeClass("test2");
-                $(".pline").removeClass("test2");
-                $(".sline").removeClass("test2");
+                $(".eline").removeClass("target");
+                $(".cmline").removeClass("other");
+                $(".baeline").removeClass("other");
+                $(".pline").removeClass("other");
+                $(".sline").removeClass("other");
             });
         }).catch(function(error) {
             console.log("Error loading the field dataset: " + error);

@@ -18,7 +18,7 @@ window.onload = function() {
             var containerWidth = document.getElementById("chart").offsetWidth;
             var svgWidth = containerWidth;
             var svgHeight = 500;
-            var margin = { top: 20, right: 20, bottom: 30, left: 50 };
+            var margin = { top: 20, right: 20, bottom: 42, left: 50 };
             var width = svgWidth - margin.left - margin.right;
             var height = svgHeight - margin.top - margin.bottom;
             var svg = d3.select("#chart")
@@ -48,13 +48,11 @@ window.onload = function() {
 
             // ADD YEAR LABEL
             svg.append("text")
-            .attr("transform", "translate(0," + height + ")")
-            .attr("y", 0 - height)
-            .attr("x", 0 - (height / 2))
-            .attr("dy", "1em")
-            .style("text-anchor", "middle")
-            .text("Year");
-
+                .attr("class", "x-axis-label")
+                .attr("x", width / 2)
+                .attr("y", height + margin.top + 20) // Adjust the y position as needed
+                .style("text-anchor", "middle")
+                .text("Year");
 
             // Create the y-axis
             var yAxis = d3.axisLeft(yScale);
@@ -211,31 +209,31 @@ window.onload = function() {
                 $(".cmline").css("stroke-width", 5);
                 $(".cm-dot").css("r", 5);
                 $(".cm-dot").css("stroke", "lightblue");
-                $('.cm-text').css("background-color","lightblue");
+                $('.cm-text').css("background-color","thistle");
             });
             $(".baehover").mouseover(function() {
                 $(".baeline").css("stroke-width", 5);
                 $(".bae-dot").css("r", 5);
                 $(".bae-dot").css("stroke", "palevioletred");
-                $('.bae-text').css("background-color","palevioletred");
+                $('.bae-text').css("background-color","thistle");
             });
             $(".phover").mouseover(function() {
                 $(".pline").css("stroke-width", 5);
                 $(".p-dot").css("r", 5);
                 $(".p-dot").css("stroke", "mediumpurple");
-                $('.p-text').css("background-color","mediumpurple");
+                $('.p-text').css("background-color","thistle");
             });
             $(".shover").mouseover(function() {
                 $(".sline").css("stroke-width", 5);
                 $(".s-dot").css("r", 5);
                 $(".s-dot").css("stroke", "orchid");
-                $('.s-text').css("background-color","orchid");
+                $('.s-text').css("background-color","thistle");
             });
             $(".ehover").mouseover(function() {
                 $(".eline").css("stroke-width", 5);
                 $(".e-dot").css("r", 5);
                 $(".e-dot").css("stroke", "mistyrose");
-                $('.e-text').css("background-color","mistyrose");
+                $('.e-text').css("background-color","thistle");
             });
             $(".cmhover").mouseout(function() {
                 $(".cmline").css("stroke-width", 3);
@@ -340,30 +338,95 @@ window.onload = function() {
         }).catch(function(error) {
             console.log("Error loading the field dataset: " + error);
         });
-        d3.csv("women-demographics.csv", d3.autoType).then(function(dataset) {
+
+        d3.csv("women-in-cs-1995-2018.csv").then(function(dataset) {
             // Parse the dataset
             dataset.forEach(function(d) {
-                // d.workforce_groups = +d.workforce_groups;
-                d.black_africanamerican = +d.black_africanamerican;
-                d.native_american = +d.native_american;
-                d.hispanic_latino = +d.hispanic_latino;
-                d.asian = +d.asian;
-                d.pacific_islander = +d.pacific_islander;
-                d.white = +d.white;
-                d.more_than_one = +d.more_than_one;
-                // console.log(+d.more_than_one);
-                var workforce = [];
-                for (i = 0; i < dataset.length; i++) {
-                    if (!(workforce.includes(dataset[i]["workforce_groups"]))) {
-                        workforce.push(dataset[i]["workforce_groups"]);
-                    }
-                }
-                console.log(workforce);
+                d.year = +d.year; // Convert string to number
+                d.bachelors = +d.bachelors;
+                d.masters = +d.masters;
+                d.doctorate = +d.doctorate;
             });
-        }).catch(function(error) {
-            console.log("Error loading demographic dataset: " + error)
-        });
 
+            // Remove existing SVG
+            d3.select("#bar-chart").selectAll("svg").remove();
+            
+            // Set up the SVG
+            var containerWidth = document.getElementById("bar-chart").offsetWidth;
+            var svgWidth = containerWidth;
+            var svgHeight = 500;
+            var margin = { top: 20, right: 20, bottom: 42, left: 50 };
+            var width = svgWidth - margin.left - margin.right;
+            var height = svgHeight - margin.top - margin.bottom;
+            var svg = d3.select("#bar-chart")
+                        .append("svg")
+                        .attr("width", svgWidth)
+                        .attr("height", svgHeight)
+                        .append("g")
+                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            
+            // Set up scales
+            var xScale = d3.scaleBand()
+                            .domain(dataset.map(function(d) { return d.year; }))
+                            .range([0, width])
+                            .padding(0.1);
+            var yScale = d3.scaleLinear()
+                            .domain([0, d3.max(dataset, function(d) {
+                                return d.bachelors + d.masters + d.doctorate;
+                            })])
+                            .nice()
+                            .range([height, 0]);
+
+            // Create color scale for segments
+            var color = d3.scaleOrdinal()
+                            .domain(["bachelors", "masters", "doctorate"])
+                            .range(["#ff9999", "#66c2a5", "#8da0cb"]);
+
+            // Create stacked data
+            var stackedData = d3.stack()
+                                .keys(["bachelors", "masters", "doctorate"])
+                                .order(d3.stackOrderNone)
+                                .offset(d3.stackOffsetNone)(dataset);
+
+            // Create and append bars
+            svg.selectAll(".bar")
+                .data(stackedData)
+                .enter().append("g")
+                .attr("class", "bar")
+                .selectAll("rect")
+                .data(function(d) { return d; })
+                .enter().append("rect")
+                .attr("x", function(d) { return xScale(d.data.year); })
+                .attr("y", function(d) { return yScale(d[1]); })
+                .attr("height", function(d) { return yScale(d[0]) - yScale(d[1]); })
+                .attr("width", xScale.bandwidth())
+                .attr("fill", function(d) { return color(d3.select(this.parentNode).datum().key); }) // Assign color based on key
+                .attr("data-toggle", "tooltip") // Add Bootstrap tooltip attribute
+                .attr("title", function(d) { return d.data[d3.select(this.parentNode).datum().key]; }); // Set tooltip text
+
+            // Create the x-axis
+            var xAxis = d3.axisBottom(xScale);
+
+            // Append x-axis to SVG
+            svg.append("g")
+                .attr("class", "x-axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
+
+            // Create the y-axis
+            var yAxis = d3.axisLeft(yScale);
+
+            // Append y-axis to SVG
+            svg.append("g")
+                .attr("class", "y-axis")
+                .call(yAxis);
+
+            $('[data-toggle="tooltip"]').tooltip();
+
+        }).catch(function(error) {
+            console.log("Error loading the dataset: " + error);
+        });
+       
     }
     // Call createChart initially and on window resize
     createChart();

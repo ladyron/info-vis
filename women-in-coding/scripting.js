@@ -380,7 +380,7 @@ window.onload = function() {
             // Create color scale for segments
             var color = d3.scaleOrdinal()
                             .domain(["bachelors", "masters", "doctorate"])
-                            .range(["#ff9999", "#66c2a5", "#8da0cb"]);
+                            .range(["#6C464F", "#9E768F", "#9FA4C4"]);
 
             // Create stacked data
             var stackedData = d3.stack()

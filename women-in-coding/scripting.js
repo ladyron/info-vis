@@ -211,52 +211,61 @@ window.onload = function() {
                 $(".cmline").css("stroke-width", 5);
                 $(".cm-dot").css("r", 5);
                 $(".cm-dot").css("stroke", "lightblue");
+                $('.cm-text').css("background-color","lightblue");
             });
             $(".baehover").mouseover(function() {
                 $(".baeline").css("stroke-width", 5);
                 $(".bae-dot").css("r", 5);
                 $(".bae-dot").css("stroke", "palevioletred");
+                $('.bae-text').css("background-color","palevioletred");
             });
             $(".phover").mouseover(function() {
                 $(".pline").css("stroke-width", 5);
                 $(".p-dot").css("r", 5);
                 $(".p-dot").css("stroke", "mediumpurple");
+                $('.p-text').css("background-color","mediumpurple");
             });
             $(".shover").mouseover(function() {
                 $(".sline").css("stroke-width", 5);
                 $(".s-dot").css("r", 5);
                 $(".s-dot").css("stroke", "orchid");
+                $('.s-text').css("background-color","orchid");
             });
             $(".ehover").mouseover(function() {
                 $(".eline").css("stroke-width", 5);
                 $(".e-dot").css("r", 5);
                 $(".e-dot").css("stroke", "mistyrose");
+                $('.e-text').css("background-color","mistyrose");
             });
             $(".cmhover").mouseout(function() {
                 $(".cmline").css("stroke-width", 3);
                 $(".cm-dot").css("r", 4);
                 $(".cm-dot").css("stroke", "transparent");
-                $('.cm-text').css("border-bottom", "");
+                $('.cm-text').css("background-color","transparent");
             });
             $(".baehover").mouseout(function() {
                 $(".baeline").css("stroke-width", 3);
                 $(".bae-dot").css("r", 4);
                 $(".bae-dot").css("stroke", "transparent");
+                $('.bae-text').css("background-color","transparent");
             });
             $(".phover").mouseout(function() {
                 $(".pline").css("stroke-width", 3);
                 $(".p-dot").css("r", 4);
                 $(".p-dot").css("stroke", "transparent");
+                $('.p-text').css("background-color","transparent");
             });
             $(".shover").mouseout(function() {
                 $(".sline").css("stroke-width", 3);
                 $(".s-dot").css("r", 4);
                 $(".s-dot").css("stroke", "transparent");
+                $('.s-text').css("background-color","transparent");
             });
             $(".ehover").mouseout(function() {
                 $(".eline").css("stroke-width", 3);
                 $(".e-dot").css("r", 4);
                 $(".e-dot").css("stroke", "transparent");
+                $('.e-text').css("background-color","transparent");
             });
             $(".cm-text").mouseover(function() {
                 $(".cmline").addClass("target");
@@ -331,10 +340,10 @@ window.onload = function() {
         }).catch(function(error) {
             console.log("Error loading the field dataset: " + error);
         });
-        d3.csv("women-demographics.csv").then(function(dataset) {
+        d3.csv("women-demographics.csv", d3.autoType).then(function(dataset) {
             // Parse the dataset
             dataset.forEach(function(d) {
-                d.workforce_groups = +d.workforce_groups;
+                // d.workforce_groups = +d.workforce_groups;
                 d.black_africanamerican = +d.black_africanamerican;
                 d.native_american = +d.native_american;
                 d.hispanic_latino = +d.hispanic_latino;
@@ -342,8 +351,15 @@ window.onload = function() {
                 d.pacific_islander = +d.pacific_islander;
                 d.white = +d.white;
                 d.more_than_one = +d.more_than_one;
+                // console.log(+d.more_than_one);
+                var workforce = [];
+                for (i = 0; i < dataset.length; i++) {
+                    if (!(workforce.includes(dataset[i]["workforce_groups"]))) {
+                        workforce.push(dataset[i]["workforce_groups"]);
+                    }
+                }
+                console.log(workforce);
             });
-
         }).catch(function(error) {
             console.log("Error loading demographic dataset: " + error)
         });

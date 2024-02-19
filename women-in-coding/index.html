@@ -19,19 +19,17 @@
 
           .axis text {
             font-size: 14px; /* Initial font size */
-        }
+          }
+          
+        /* svg:has(.line:hover) .line:not(:hover) {
+          opacity: 0.2;
+        } */
         .line {
           transition: 150ms ease-in-out all;
           display: block;
           padding: 10px;
           stroke-linecap: round;
         }
-        /* svg:has(.line:hover) .line:not(:hover) {
-          opacity: 0.2;
-        } */
-        /* .line:hover {
-          stroke-width: 5;
-        } */
       }
       #bar-chart {
         rect {
@@ -41,6 +39,19 @@
         rect:hover {
           filter: brightness(1.2);
         }
+        .axis text {
+            font-size: 14px; /* Initial font size */
+          }
+          .bachelors {
+            transition: 150ms ease-in-out all;
+          }
+          .doctorate {
+            transition: 150ms ease-in-out all;
+          }
+          .masters {
+            transition: 150ms ease-in-out all;
+          }
+
       }
       h1 {
         text-align: center;
@@ -83,6 +94,9 @@
       .credit {
         margin: 10px 50px auto 50px;
         font-size: 14px;
+      }
+      .b-legend-1 {
+        display: flex;
       }
       @media screen and (max-width: 768px) {
         .groups {
@@ -159,7 +173,19 @@
           <!-- https://www.npr.org/sections/money/2014/10/21/357629765/when-women-stopped-coding -->
         </div>
       </div>
+      <h1>Women in Computer Science with degrees from 1995 to 2019 in the United States</h1>
       <div id="bar-chart"></div>
+      <div class="b-legend">
+        <div class="b-legend-1">
+          <svg height="20" width="20">
+            <rect height="100" width="100" fill="#6C464F"/>
+          </svg>
+          <p class="bachelors-text">Bachelor's Degree</p>
+        </div>
+
+        <p class="doctorate-text">Doctorate Degree</p>
+        <p class="masters-text">Master's Degree</p>
+      </div>
     </div>
  </body>
 </html>

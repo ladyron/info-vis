@@ -392,7 +392,8 @@ window.onload = function() {
             svg.selectAll(".bar")
                 .data(stackedData)
                 .enter().append("g")
-                .attr("class", "bar")
+                // .attr("class", "bar")
+                .attr("class", function(d) { return "bar " + d.key; })
                 .selectAll("rect")
                 .data(function(d) { return d; })
                 .enter().append("rect")
@@ -408,7 +409,7 @@ window.onload = function() {
             var xAxis = d3.axisBottom(xScale);
 
             // Append x-axis to SVG
-            svg.append("g")
+            var xAxisGroup = svg.append("g")
                 .attr("class", "x-axis")
                 .attr("transform", "translate(0," + height + ")")
                 .call(xAxis);
@@ -417,11 +418,51 @@ window.onload = function() {
             var yAxis = d3.axisLeft(yScale);
 
             // Append y-axis to SVG
-            svg.append("g")
+            var yAxisGroup = svg.append("g")
                 .attr("class", "y-axis")
                 .call(yAxis);
 
+            // Update font size of x-axis text based on container width
+            var fontSize = Math.min(14, Math.max(8, containerWidth / 60));
+            xAxisGroup.selectAll("text")
+                .style("font-size", fontSize + "px");
+            yAxisGroup.selectAll("text")
+                .style("font-size", fontSize + "px");
+
+            yAxisGroup.selectAll('.tick').selectAll('line').remove();
+
             $('[data-toggle="tooltip"]').tooltip();
+
+            $(".bachelors-text").mouseover(function() {
+                $(".bachelors").css("opacity", "1");
+                $(".doctorate").css("opacity", "0.5");
+                $(".masters").css("opacity", "0.5");
+            });
+            $(".bachelors-text").mouseout(function() {
+                $(".bachelors").css("opacity", "1");
+                $(".doctorate").css("opacity", "1");
+                $(".masters").css("opacity", "1");
+            });
+            $(".doctorate-text").mouseover(function() {
+                $(".doctorate").css("opacity", "1");
+                $(".bachelors").css("opacity", "0.5");
+                $(".masters").css("opacity", "0.5");
+            });
+            $(".doctorate-text").mouseout(function() {
+                $(".doctorate").css("opacity", "1");
+                $(".bachelors").css("opacity", "1");
+                $(".masters").css("opacity", "1");
+            });
+            $(".masters-text").mouseover(function() {
+                $(".masters").css("opacity", "1");
+                $(".doctorate").css("opacity", "0.5");
+                $(".bachelors").css("opacity", "0.5");
+            });
+            $(".doctorate-text").mouseout(function() {
+                $(".masters").css("opacity", "1");
+                $(".doctorate").css("opacity", "1");
+                $(".bachelors").css("opacity", "1");
+            });
 
         }).catch(function(error) {
             console.log("Error loading the dataset: " + error);

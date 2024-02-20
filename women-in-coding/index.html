@@ -97,6 +97,17 @@
       }
       .b-legend-1 {
         display: flex;
+        gap: 7px;
+      }
+      .b-legend {
+        cursor: pointer;
+        margin: auto 50px;
+      }
+      .bar-text {
+        transition: 150ms ease-in-out all;
+      }
+      .b-legend:has(.bar-text:hover) .bar-text:not(:hover) {
+        opacity: 0.7;
       }
       @media screen and (max-width: 768px) {
         .groups {
@@ -176,15 +187,24 @@
       <h1>Women in Computer Science with degrees from 1995 to 2019 in the United States</h1>
       <div id="bar-chart"></div>
       <div class="b-legend">
-        <div class="b-legend-1">
-          <svg height="10" width="10">
-            <rect height="100" width="100" fill="#6C464F"/>
+        <div class="b-legend-1 bachelors-text bar-text">
+          <svg height="15" width="15">
+            <rect height="15" width="15" fill="#6C464F"/>
           </svg>
-          <p class="bachelors-text">Bachelor's Degree</p>
+          <p>Bachelor's degree</p>
         </div>
-
-        <p class="doctorate-text">Doctorate Degree</p>
-        <p class="masters-text">Master's Degree</p>
+        <div class="b-legend-1 masters-text bar-text">
+          <svg height="15" width="15">
+            <rect height="15" width="15" fill="#9E768F"/>
+          </svg>
+          <p>Master's degree</p>
+        </div>
+        <div class="b-legend-1 doctorate-text bar-text">
+          <svg height="15" width="15">
+            <rect height="15" width="15" fill="#9FA4C4"/>
+          </svg>
+          <p>Doctorate degree</p>
+        </div>
       </div>
     </div>
  </body>

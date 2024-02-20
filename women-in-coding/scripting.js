@@ -414,6 +414,13 @@ window.onload = function() {
                 .attr("transform", "translate(0," + height + ")")
                 .call(xAxis);
 
+            svg.append("text")
+                .attr("class", "x-axis-label")
+                .attr("x", width / 2)
+                .attr("y", height + margin.top + 20) // Adjust the y position as needed
+                .style("text-anchor", "middle")
+                .text("Year");
+
             // Create the y-axis
             var yAxis = d3.axisLeft(yScale);
 
@@ -421,6 +428,14 @@ window.onload = function() {
             var yAxisGroup = svg.append("g")
                 .attr("class", "y-axis")
                 .call(yAxis);
+
+            svg.append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 0 - margin.left)
+                .attr("x", 0 - (height / 2))
+                .attr("dy", "1em")
+                .style("text-anchor", "middle")
+                .text("Percent");
 
             // Update font size of x-axis text based on container width
             var fontSize = Math.min(14, Math.max(8, containerWidth / 60));
@@ -459,9 +474,27 @@ window.onload = function() {
                 $(".bachelors").css("opacity", "0.5");
             });
             $(".doctorate-text").mouseout(function() {
-                $(".masters").css("opacity", "1");
+                                $(".masters").css("opacity", "1");
                 $(".doctorate").css("opacity", "1");
                 $(".bachelors").css("opacity", "1");
+            });
+            $(".bachelors").mouseover(function() {
+                $(".bachelors-text").css("background-color", "thistle");
+            });
+            $(".doctorate").mouseover(function() {
+                $(".doctorate-text").css("background-color", "thistle");
+            });
+            $(".masters").mouseover(function() {
+                $(".masters-text").css("background-color", "thistle");
+            });
+            $(".bachelors").mouseout(function() {
+                $(".bachelors-text").css("background-color", "transparent");
+            });
+            $(".doctorate").mouseout(function() {
+                $(".doctorate-text").css("background-color", "transparent");
+            });
+            $(".masters").mouseout(function() {
+                $(".masters-text").css("background-color", "transparent");
             });
 
         }).catch(function(error) {

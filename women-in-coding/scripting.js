@@ -1,5 +1,75 @@
 window.onload = function() {
     function createChart() {
+
+        // Timeline inspo https://walterra.github.io/d3-milestones/?path=/story/d3-milestones-readme-md--page
+        // Timeline
+        const timelineData = [
+            { year: 793, event: "Lindisfarne Raid" },
+            { year: 865, event: "Great Heathen Army" },
+            { year: 878, event: "Battle of Edington" },
+            { year: 1066, event: "Battle of Stamford Bridge" }
+        ]
+
+        d3.select("#timeline").selectAll("svg").remove();
+
+        var timelineContainerWidth = document.getElementById("timeline").offsetWidth;
+        var timelineSVGWidth = timelineContainerWidth;
+        var timelineSVGHeight = 500;
+        var timelineMargin = { top: 40, right: 40, bottom: 50, left: 40 };
+        var timelineWidth = timelineSVGWidth - timelineMargin.left - timelineMargin.right;
+        var timelineHeight = timelineSVGHeight - timelineMargin.top - timelineMargin.bottom;
+        var timelineSVG = d3.select("#timeline")
+                    .append("svg")
+                    .attr("width", timelineSVGWidth)
+                    .attr("height", timelineSVGHeight)
+                    .append("g")
+                    .attr("transform", "translate(" + timelineMargin.left + "," + timelineMargin.top + ")");
+
+        var timelinexScale =  d3.scaleLinear()
+        .domain([d3.min(timelineData, d => d.year), d3.max(timelineData, d => d.year)])
+        .range([0, timelineWidth]);
+
+        var timelineyPosition = timelineHeight / 2;
+
+        timelineSVG.append("line")
+            .attr("x1", 0)
+            .attr("x2", timelineWidth)
+            .attr("y1", timelineyPosition)
+            .attr("y2", timelineyPosition)
+            .attr("stroke", "#ccc")
+            .attr("stroke-width", 2);
+            
+
+        // Tooltip for the timeline events
+        var timelineTooltip = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0)
+        .style("position", "absolute")
+        .style("background-color", "#f9f9f9")
+        .style("border", "1px solid #d3d3d3")
+        .style("padding", "8px")
+        .style("border-radius", "4px");
+
+        timelineSVG.selectAll("circle")
+        .data(timelineData)
+        .enter()
+        .append("circle")
+        .attr("cx", d => timelinexScale(d.year))
+        .attr("cy", timelineyPosition)
+        .attr("r", 12) // Large circles for milestones
+        .attr("fill", "steelblue")
+        .attr("stroke", "white")
+        .attr("stroke-width", 2)
+        .on("mouseover", function(event, d) {
+            timelineTooltip.transition().duration(200).style("opacity", 0.9);
+            timelineTooltip.html(`<strong>${d.year}</strong><br>${d.event}`)
+                .style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mouseout", function() {
+            timelineTooltip.transition().duration(500).style("opacity", 0);
+        });
+
         d3.csv("women-in-stem-1993-2009.csv").then(function(dataset) {
             // Parse the dataset
             dataset.forEach(function(d) {
